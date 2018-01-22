@@ -1,0 +1,33 @@
+<div class="container">
+
+    <h2>Add new employee</h2>
+
+    <form method="post" action="/employee/save">
+        <p> Enter new employee name (required).
+            <input type="text" name="name"   class="form-control" required/>
+        </p>
+<br>
+        <p>  Enter new employee e-mail (required).
+        <input type="email" name="email" class="form-control" required/>
+        </p>
+            <br>
+        <p> Chose password for new employee
+        <input type="password" name="password" class="form-control" required/>
+
+        Repeat password for new employee
+        <input type="password" name="password_repeated" class="form-control" required/>
+        </p>
+            <br>
+
+        <p> Select a role for new employee (employee or admin)
+        <select name="role" class="form-control" required>
+            <option>employee</option>
+            <option>admin</option>
+        </select>
+        </p>
+        <br>
+
+        <button type="submit" value="" >Save</button>
+    </form>
+
+</div>

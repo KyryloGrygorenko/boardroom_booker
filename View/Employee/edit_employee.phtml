@@ -1,0 +1,40 @@
+<div class="container">
+
+    <h2>Update employee</h2>
+
+    <form method="post" action="/employee/edited/save" >
+        <p> Edit the employee's name (required).
+            <input type="text" name="name"  value="<?=$user->getName()?>" class="form-control" required/>
+        </p>
+<br>
+        <p>  Edit new employee's e-mail (required).
+        <input type="email" name="email" value="<?=$user->getEmail()?>" class="form-control" required/>
+        </p>
+            <br>
+        <p> Chose password for employee's
+
+            <input type="password" name="password"  class="form-control" required/>
+
+        Repeat password for employee's
+        <input type="password" name="password_repeated" value="" class="form-control" required/>
+        </p>
+            <br>
+
+        <p> Change the role for new employee's (employee or admin)
+        <select name="role" class="form-control" required>
+            <?php if($user->getRole() == 'admin'):?>
+                <option>employee</option>
+                <option selected>admin</option>
+            <?php else:?>
+                <option selected>employee</option>
+                <option>admin</option>
+            <?php endif;?>
+        </select>
+        </p>
+        <br>
+
+        <input type="hidden" name="employee_id" value="<?=$user->getId()?>"/>
+        <button type="submit" value="" >Save</button>
+    </form>
+
+</div>

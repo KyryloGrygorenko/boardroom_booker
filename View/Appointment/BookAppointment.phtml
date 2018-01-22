@@ -1,0 +1,71 @@
+<div class="container">
+<form method="post" action="/save">
+    <p>1.Booked for
+        <select name="employee_id">
+            <?php foreach ($all_employees as $employee):?>
+                    <option value="<?=$employee->getId()?>" ><?=$employee->getName()?></option>
+            <?php endforeach;?>
+        </select>
+    </p>
+
+    <p>2.I would like to book this meeting:
+        <input type="date" name="appointment_date" max="<?=END_YEAR?>-12-31" min="<?=START_YEAR?>-01-01">
+    </p>
+    <p>3.Specify begining and ending time of the meeting(This wil be what people see on the screen)</p>
+
+    Start time
+    <select name="appointment_start_hour">
+        <?php foreach ($hours as $hour):?>
+            <option><?=$hour?></option>
+        <?php endforeach;?>
+    </select>
+    <select name="appointment_start_minutes">
+        <?php foreach ($minutes as $minute):?>
+            <option><?=$minute?></option>
+        <?php endforeach;?>
+    </select>
+    <select name="start_AM_PM">
+            <option>AM</option>
+            <option>PM</option>
+    </select>
+    <br>
+    End time
+    <select name="appointment_end_hour">
+        <?php foreach ($hours as $hour):?>
+            <option><?=$hour?></option>
+        <?php endforeach;?>
+    </select>
+    <select name="appointment_end_minutes">
+        <?php foreach ($minutes as $minute):?>
+            <option><?=$minute?></option>
+        <?php endforeach;?>
+    </select>
+    <select name="end_AM_PM">
+        <option>AM</option>
+        <option>PM</option>
+    </select>
+
+    <p>4. Enter the specifics for the meeting.(This will be what people see when they click on the event link.</p>
+    <textarea name="notes"></textarea>
+    <p>5.Is this going to be a recurring event?</p>
+
+    <input type="radio" name="is_event_reccuring" value="true">yes
+
+    <p>6.If it is recurring, specify weekly, bi-weekly or monthly.</p>
+    <input type="radio" name="if_event_reccuring_how_often" value="weekly" >weekly
+    <br>
+    <input type="radio" name="if_event_reccuring_how_often" value="bi-weekly">bi-weekly
+    <br>
+    <input type="radio" name="if_event_reccuring_how_often" value="monthly">monthly
+    <p>duration(max 4 weeks)</p>
+
+    <select name="events_reccure_times">
+            <option >2</option>
+            <option >3</option>
+            <option >4</option>
+    </select>
+<br>
+<br>
+    <button type="submit">Submit</button>
+</form>
+</div>

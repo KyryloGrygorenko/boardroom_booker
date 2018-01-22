@@ -1,0 +1,35 @@
+body {
+  padding-top: 5px;
+}
+.starter-template {
+  padding: 1px 15px;
+  text-align: center;
+}
+/*.container {*/
+  /*width: 1200px;*/
+  /*align-content: center;*/
+/*}*/
+
+#content-container-admin{
+  clear: both;
+  display: block;
+  position: relative;
+  margin: 0px auto;
+}
+#content-container{
+  clear: both;
+  display: block;
+  position: relative;
+  margin-top: 40px;
+}
+li {
+  list-style-type: none; /* Убираем маркеры */
+}
+ul {
+  margin-left: 0; /* Отступ слева в браузере IE и Opera */
+  padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+}
+
+
+
+

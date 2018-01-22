@@ -1,0 +1,127 @@
+<div class="container">
+
+    <form method="post" action="/save_update">
+    <table border="2" cellpadding="5" width="100%">
+        <tr>
+            <td colspan="2"><b>B.B. DETAILS</b> </td>
+        </tr>
+
+        <tr>
+            <td><p>When :</p></td>
+            <td>
+                <input type="hidden" name="old_appointment_start_hour" value="<?=$appointment->getStartTimeUnix()?>">
+                <input type="hidden" name="old_appointment_end_hour" value="<?=$appointment->getEndTimeUnix()?>">
+                <select name="updated_appointment_start_hour">
+                    <?php foreach ($hours as $hour):?>
+                        <?php if($appointment->getStartTimeHours() == $hour):?>
+                            <option selected><?=$hour?></option>
+                        <?php else:?>
+                            <option><?=$hour?></option>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </select>
+
+                <select name="updated_appointment_start_minutes">
+                    <?php foreach ($minutes as $minute):?>
+                        <?php if($appointment->getStartTimeMinutes() == $minute):?>
+                            <option selected><?=$minute?></option>
+                        <?php else:?>
+                            <option><?=$minute?></option>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </select>
+                <select name="start_AM_PM">
+                    <?php if($appointment->start_hours_am_pm_mode == 'am'):?>
+                        <option selected>AM</option>
+                        <option>PM</option>
+                    <?php else:?>
+                        <option>AM</option>
+                        <option selected>PM</option>
+                    <?php endif;?>
+                </select>
+                -
+                <select name="updated_appointment_end_hour">
+                    <?php foreach ($hours as $hour):?>
+                        <?php if($appointment->getEndTimeHours() == $hour):?>
+                        <option selected><?=$hour?></option>
+                        <?php else:?>
+                            <option><?=$hour?></option>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </select>
+                <select name="updated_appointment_end_minutes">
+                    <?php foreach ($minutes as $minute):?>
+                        <?php if($appointment->getEndTimeMinutes() == $minute):?>
+                            <option selected><?=$minute?></option>
+                        <?php else:?>
+                            <option><?=$minute?></option>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </select>
+
+                <select name="updated_end_AM_PM">
+                    <?php if($appointment->end_hours_am_pm_mode == 'am'):?>
+                        <option selected>AM</option>
+                        <option>PM</option>
+                    <?php else:?>
+                        <option>AM</option>
+                        <option selected>PM</option>
+                    <?php endif;?>
+                </select></td>
+        </tr>
+        <tr>
+            <td>Who :</td>
+            <td>
+                <?=$user_name?>
+                <select name="employee_id">
+                    <?php foreach ($all_employees as $employee):?>
+                        <?php if($employee->getName()== $user_name ) :?>
+                        <option  selected value="<?=$employee->getId()?>" ><?=$employee->getName()?></option>
+                        <?php else:?>
+                            <option value="<?=$employee->getId()?>" ><?=$employee->getName()?></option>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Notes:</td>
+            <td>
+                <textarea name="notes"><?=$appointment->getNotes()?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Notes:</td>
+            <td><?=$appointment->getSubmitted()?></td>
+        </tr>
+    </table>
+
+        <?php if($appointment_is_multiple):?>
+            <input type="checkbox" name="apply_to_all_connected_appointments"><b>Apply changes to all connected appointments</b>
+        <?php endif;?>
+        <br>
+        <input type="hidden" name="appointment_id" value="<?=$appointment->getId()?>">
+        <input type="hidden" name="appointment_start_hour" value="<?=$appointment->getStartTimeUnix()?>">
+        <input type="hidden" name="appointment_end_hour" value="<?=$appointment->getEndTimeUnix()?>">
+        <input type="hidden" name="connection_id" value="<?=$appointment->getConnectionId()?>">
+        <button type="submit" value="" >Update</button>
+    </form>
+
+    <form method="post" action="/delete">
+
+        <?php if($appointment_is_multiple):?>
+            <input type="checkbox" name="apply_to_all_connected_appointments"><b>Apply changes to all connected appointments</b>
+            <input type="hidden" name="connection_id" value="<?=$appointment->getConnectionId()?>">
+        <?php endif;?>
+        <br>
+        <input type="hidden" name="appointment_id" value="<?=$appointment->getId()?>">
+        <button type="submit" value="" >Delete</button>
+
+
+    </form>
+
+
+    <br>
+
+
+</div>

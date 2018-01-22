@@ -1,0 +1,48 @@
+<div class="container">
+
+
+    <table border="2" cellpadding="5" width="100%">
+        <tr>
+            <td colspan="2"><b>B.B. DETAILS</b> </td>
+        </tr>
+        <tr>
+            <td><p>When :</p></td>
+            <td><?=$appointment->getStartTimeString()?>-<?=$appointment->getEndTimeString()?></td>
+        </tr>
+        <tr>
+            <td>Who :</td>
+            <td><?=$user_name?></td>
+        </tr>
+        <tr>
+            <td>Notes :</td>
+            <td><?=$appointment->getNotes()?></td>
+        </tr>
+        <tr>
+            <td>Submitted :</td>
+            <td><?=$appointment->getSubmitted()?></td>
+        </tr>
+
+    </table>
+
+
+
+    <form method="post" action="/delete">
+
+        <?php if($appointment_is_multiple):?>
+            <input type="checkbox" name="apply_to_all_connected_appointments"><b>Apply changes to all connected appointments</b>
+            <input type="hidden" name="connection_id" value="<?=$appointment->getConnectionId()?>">
+        <?php endif;?>
+        <br>
+        <input type="hidden" name="appointment_id" value="<?=$appointment->getId()?>">
+        <button type="submit" value="" >Delete</button>
+
+
+    </form>
+    <br>
+    <form method="post" action="/update">
+
+        <input type="hidden" name="appointment_id" value="<?=$appointment->getId()?>">
+        <button type="submit" value="" >Update</button>
+    </form>
+
+</div>

@@ -1,0 +1,147 @@
+<div class="container">
+    <h2>Boardroom Booker</h2>
+    <p>Current boardroom:<?=$boardroom_id?></p>
+
+
+
+    <form method="post" action="/">
+        <select name="chosen_year">
+            <?php foreach ($all_years_in_range as $value):?>
+                <?php if (!isset($chosen_year) && $value == $current_year):?>
+                    <option selected><?=$value?></option>
+                <?php elseif($value == $chosen_year):?>
+                    <option selected><?=$value?></option>
+                    <?php $current_year=$chosen_year?>
+
+                <?php else:?>
+                    <option ><?=$value?></option>
+                <?php endif;?>
+            <?php endforeach;?>
+        </select>
+        <select name="chosen_month_number">
+            <?php foreach ($all_months as $key => $value):?>
+                <?php if (!isset($chosen_month_number) && $key+1 == $current_month_number):?>
+                    <option selected value="<?=$key+1?>" ><?=$value?></option>
+               <?php elseif($key+1 == $chosen_month_number):?>
+                    <option selected value="<?=$key+1?>" ><?=$value?></option>
+                    <?php $current_month_number=$key+1?>
+               <?php else:?>
+                    <option value="<?=$key+1?>"> <?=$value?></option>
+                <?php endif;?>
+            <?php endforeach;?>
+        </select>
+
+        <input type="hidden" value="">
+        <button type="submit" value="" >Show</button>
+    </form>
+
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <?php if($next_and_previous_month->previous_month):?>
+                    <form method="post" action="/">
+                        <input type="hidden" name="chosen_year" value="<?=$next_and_previous_month->year_of_previous_month?>">
+                        <input type="hidden" name="chosen_month_number" value="<?=$next_and_previous_month->previous_month?>">
+                        <button type="submit" value="" >Previous Month</button>
+                    </form>
+                <?php endif;?>
+            </div>
+            <div class="col-sm-4">
+                <form method="post" action="/">
+                    <?php if ($days_mode[0] =='Monday'):?>
+                        <input type="hidden" name="days_mode" value="Sunday">
+                        <button type="submit" value="" >Make Sunday First Day</button>
+                    <?php else:?>
+                        <input type="hidden" name="days_mode" value="Monday">
+                        <button type="submit" value="" >Make Monday First Day</button>
+                    <?php endif;?>
+                </form>
+            </div>
+            <div class="col-sm-4">
+                <form method="post" action="/">
+                    <?php if ($am_pm_or_military_hours_mode == 'am_pm_mode'):?>
+                        <input type="hidden" name="am_pm_or_military_hours_mode" value="military_mode">
+                        <button type="submit" value="" >Switch to Military Time Mode</button>
+                    <?php else:?>
+                        <input type="hidden" name="am_pm_or_military_hours_mode" value="am_pm_mode">
+                        <button type="submit" value="" >Switch to AM/PM Time Mode</button>
+                    <?php endif;?>
+                </form>
+            </div>
+            <div class="col-sm-2">
+                <?php if($next_and_previous_month->next_month):?>
+                    <form method="post" action="/">
+                        <input type="hidden" name="chosen_year" value="<?=$next_and_previous_month->year_of_next_month?>">
+                        <input type="hidden" name="chosen_month_number" value="<?=$next_and_previous_month->next_month?>">
+                        <button type="submit" value="" >Next Month</button>
+                    </form>
+                <?php endif;?>
+
+            </div>
+        </div>
+        <div class="row"></div>
+    </div>
+
+
+
+
+
+
+<br>
+    <a href="/book_appointment"><button type="button" class="btn btn-primary">Book it!</button></a>
+<br>
+<br>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <?php foreach ($days_mode as $day):?>
+                <th><?=$day?></th>
+            <?php endforeach;?>
+
+        </tr>
+
+
+
+        </thead>
+        <tbody>
+
+        <?php
+        $number_of_the_week=1;
+        while(isset($weeks_of_the_month[$number_of_the_week])):?>
+            <tr>
+                <?php foreach ($weeks_of_the_month[$number_of_the_week] as $day):?>
+
+                    <?php if($day != ''):?>
+                        <td>
+                            <?=$days_objects_by_week[$day]->current_day?>
+                        <?php foreach ($days_objects_by_week[$day]->all_appointments_objects as $appointment):?>
+                            <p>
+                                <a href="/appointment?id=<?=$appointment->getId()?>"
+                                   onclick="window.open('/appointment?id=<?=$appointment->getId()?>',
+                                                 'newwindow',
+                                                 'width=400,height=550');
+                                      return false;">
+                                    <?=$appointment->getStartTimeString()?>
+                                    -
+                                    <?=$appointment->getEndTimeString()?>
+                                </a>
+
+
+
+                            </p>
+
+
+                        <?php endforeach;?>
+                        </td>
+                    <?php else:?>
+                        <td><?=$day?></td>
+                    <?php endif;?>
+                <?php endforeach;?>
+            </tr>
+            <?php  $number_of_the_week++;
+        endwhile?>
+        </tbody>
+    </table>
+</div>

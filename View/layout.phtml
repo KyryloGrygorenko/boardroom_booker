@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+
+      <link href="/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/css/style.css" rel="stylesheet">
+      <title>Boardroom booker</title>
+  </head>
+
+  <body>
+
+  <nav  id="header">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                  <li><a href="/" > Home</a></li>
+                  <?php foreach ($all_boardrooms as $boardroom_id):?>
+                  <li><a href="/?boardroom_id=<?=$boardroom_id?>" class="dropdown-item"> Boardroom <?=$boardroom_id?></a></li>
+                  <?php endforeach ?>
+                  <li><a href="/employees" > Employee's list</a></li>
+                  <?php if (\Library\Session::has('user')) : ?>
+                      <li><a href="/logout">Logout (<?=\Library\Session::get('user')?>)</a></li>
+                  <?php endif ?>
+
+              </ul>
+          </div><!--/.nav-collapse -->
+      </div>
+  </nav>
+
+  <div  id="content-container-admin">
+
+      <div class="starter-template">
+
+         <b style="background-color: #ffff00"><?=\Library\Session::getFlash()?></b>
+
+          <?=$content ?>
+
+          <!--<h1>Bootstrap starter template</h1>-->
+          <!--<p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>-->
+      </div>
+
+  </div><!-- /.container -->
+
+
+</div>
+
+
+  </body>
+</html>
+
+

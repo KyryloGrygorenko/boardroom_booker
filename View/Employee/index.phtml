@@ -1,0 +1,39 @@
+<div class="container">
+    <h2>Employee's list</h2>
+
+    <table class="table table-striped books-list-table" >
+        <?php foreach ($all_employees as $employee):?>
+            <tr>
+                <div class="row">
+                    <td>
+                            <option value="<?=$employee->getName()?>" ><?=$employee->getName()?></option>
+                    </td>
+
+                    <td>
+                            <form method="post" action="/employee/edit">
+                                <input type="hidden" name="employee_id" value="<?=$employee->getId()?>">
+                                <button type="submit" value="" >Edit</button>
+                            </form>
+                    </td>
+                    <td>
+                            <form method="post" action="/employee/delete">
+                                <input type="hidden" name="employee_id" value="<?=$employee->getId()?>">
+                                <button type="submit" value="" onclick="return confirm('Are you sure you want to remove this item?');" >Remove</button>
+                            </form>
+
+
+                    </td>
+                </div>
+            </tr>
+        <?php endforeach;?>
+    </table>
+
+
+        <form method="post" action="/employee/add">
+            <input type="hidden" name="employee_id" value="<?=$employee->getId()?>">
+            <button type="submit" value="" >Add a new employee</button>
+        </form>
+
+
+
+</div>
